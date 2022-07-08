@@ -24,7 +24,7 @@ export default function Home({list}) {
                 width='150'
                 alt={item.original_title}
               /><br/>
-              {item.title}
+              <p className={styles.name}>{item.title}</p>
             </li>
           ))}
         </ul>
