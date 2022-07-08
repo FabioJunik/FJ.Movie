@@ -1,7 +1,9 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+
+export default function Home({list}) {
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +16,30 @@ export default function Home() {
         <h1 className={styles.title}>
           Filmes em descaques
         </h1>
+        <ul>
+          {list.map(item => (
+            <li key={item.id}>
+              <img 
+                src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} 
+                width='150'
+                alt={item.original_title}
+              /><br/>
+              {item.title}
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   )
+}
+
+export async function getServerSideProps(){
+  const res = await fetch('http://localhost:3000/api/trending');
+  const json = await res.json();
+
+  return {
+    props:{
+      list: json.list
+    }
+  };
 }
