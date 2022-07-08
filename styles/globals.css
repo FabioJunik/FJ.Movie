@@ -9,4 +9,11 @@
 html, body{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  
+  background-color: rgb(40, 42, 54);
+  color: #fff;
+}
+
+a{
+  color: inherit;
 }

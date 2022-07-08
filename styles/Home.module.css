@@ -27,4 +27,11 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
+  transform: scale(0.9);
+  transition: .2s;
+}
+
+.main li:hover{
+  transform: scale(1);
 }
