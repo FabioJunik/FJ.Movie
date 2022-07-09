@@ -3,13 +3,15 @@ import styled from "styled-components";
 export const Container = styled.div`
     position: relative;
     width: 100%;
-    height: 50rem;
+    height: 60rem;
     
     font-size: 1.6rem;
     overflow:hidden;
 
-    background-image: url('https://www.themoviedb.org/t/p/original/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg');
+
+    background-image: url(${(props=> props.src)});
     background-size: cover;
+    background-position: center;
 `;
 
 export const LineVertical = styled.div`
@@ -31,7 +33,17 @@ export const LineHorizontal= styled.div`
 
     p{
         max-width: 50rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+`;
+
+export const Title = styled.h1  `
+    max-width: 50rem;
+    margin-bottom:1rem;
 `;
 
 

@@ -1,19 +1,19 @@
-import {Container, LineHorizontal, LineVertical, ViewMoreButton} from './styles';
+import {
+        Container, LineHorizontal, 
+        LineVertical, ViewMoreButton,
+        Title
+    } from './styles';
 import Link from 'next/link';
 
-
-export const Banner = ()=> {
+export const Banner = ({id, title, description, poster_path })=> {
+    console.log(description)
     return (
-        <Container>
+        <Container src={'https://www.themoviedb.org/t/p/original/'+poster_path}>
             <LineVertical>
                 <LineHorizontal>
-                    <h1>Nome do filme</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus cum natus aperiam sequi 
-                        sint consequuntur adipisci ullam quidem doloremque aut animi enim, 
-                        vel eaque, veritatis tempora. Nisi illum numquam reiciendis.
-                    </p>
-                    <Link href='/'>
+                    <Title>{title}</Title>
+                    <p>{description}</p>
+                    <Link href={`/movie/${id}`}>
                         <ViewMoreButton>Ver mais</ViewMoreButton>
                     </Link>
                 </LineHorizontal>
