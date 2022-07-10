@@ -69,3 +69,16 @@ export const Star = styled(AiFillStar)`
     font-size: 1.6rem;
     margin-bottom: -.2rem;
 `;
+
+export const Loading = styled.div`
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 110;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+`;

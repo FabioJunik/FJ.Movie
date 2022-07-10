@@ -7,13 +7,14 @@ export default function Index({list}) {
   )
 }
 
-export async function getServerSideProps(){
+export async function getStaticProps(){
   const res = await fetch('http://localhost:3000/api/trending');
   const json = await res.json();
 
   return {
     props:{
       list: json.list
-    }
+    },
+    revalidate: 60 * 10
   };
 }

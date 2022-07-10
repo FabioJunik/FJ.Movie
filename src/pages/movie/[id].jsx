@@ -1,14 +1,19 @@
 import Head from 'next/head';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { 
         Container, Title, Content, 
-        MoreInfo,Img,Filter, Star } 
+        MoreInfo,Img,Filter, Star, Loading } 
 from './styles';
 
 export default function MovieItem({info}) {
   console.log(info)
   
+  const {isFallback} = useRouter();
+
+  if(isFallback)
+    return <Loading> <img src={`https://64.media.tumblr.com/5bf8ba688ff3553b900a40dad2bbc1e0/tumblr_inline_pl93uu9rT41t9ij1a_1280.gifv`} alt='loading'/></Loading>
+
   const hour = Math.trunc(info.runtime/60);
   const minute = info.runtime%60;
 
@@ -46,13 +51,28 @@ export default function MovieItem({info}) {
   )
 }
 
-export async function getServerSideProps(context){
+export async function getStaticPaths(){
+  const res = await fetch('http://localhost:3000/api/trending');
+  const json = await res.json();
+
+  const paths = json.list.map(movie => {
+    return {params: {id: movie.id.toString()}}
+  })
+
+  return {
+    paths,
+    fallback: true
+  }
+}
+
+export async function getStaticProps(context){
   const res = await fetch(`http://localhost:3000/api/movie/${context.params.id}`);
   const json = await res.json();
 
   return {
     props:{
       info: json.info
-    }
+    },
+    revalidate: 60 * 60
   };
 }
