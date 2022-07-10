@@ -1,15 +1,21 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { MovieCard } from '../../components/movieCard';
 import { Container, MovieList,SearchContainer, Title } from './styles';
 
-export default function Buscar({text=''}) {
+export default function Busca({}) {
+    const {query} = useRouter();
 
-    const [searchText, setSearchText] = useState(text);
+    const [searchText, setSearchText] = useState(query.id);
     const [movieList, setMovieList] = useState([]);
 
-    const handleSearch = async () => {
+    useEffect(() => {
+        handleSearch();
+    },[])
+
+      async function handleSearch () {
         if(searchText !== ''){
             const results = await fetch(`http://localhost:3000/api/search?q=${searchText}`);
             const json = await results.json();
@@ -18,11 +24,7 @@ export default function Buscar({text=''}) {
             setMovieList(json.list);
         }
       }
-
-      if(text !== ''){
-        handleSearch();
-        text='';
-      }     
+          
   return (
     <Container >
       <Head>
@@ -34,7 +36,10 @@ export default function Buscar({text=''}) {
         <Title> Perquisar por filmes</Title>
 
       <SearchContainer>
-        <input type='text' value={searchText} onChange={e=>{setSearchText(e.target.value)}}/>   
+        <input type='text' 
+          value={searchText} 
+          onChange={e=>{setSearchText(e.target.value)}} 
+        />   
         <button onClick={handleSearch}>Buscar</button>
       </SearchContainer>
         
@@ -56,3 +61,15 @@ export default function Buscar({text=''}) {
     </Container>
   )
 }
+
+
+// export async function getServerSideProps(context){
+//   // const res = await fetch(`http://localhost:3000/api/search?q=${context.params.id}`);
+//   // const json = await res.json();
+  
+//   return { 
+//     props:{
+//       param: context.params.id
+//     }
+//   }
+// }
