@@ -51,7 +51,7 @@ export default function MovieItem({info}) {
   )
 }
 
-export async function getStaticPaths(){
+export const getStaticPaths = async() =>{
   const res = await fetch('http://localhost:3000/api/trending');
   const json = await res.json();
 
@@ -64,8 +64,8 @@ export async function getStaticPaths(){
     fallback: true
   }
 }
-
-export async function getStaticProps(context){
+ 
+export const   getStaticProps = async (context)=>{
   const res = await fetch(`http://localhost:3000/api/movie/${context.params.id}`);
   const json = await res.json();
 
